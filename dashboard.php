@@ -15,7 +15,8 @@ if (!isset($_SESSION['username'])) {
 <body>
     <h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
     <a href="members.php">Manage Members</a> |
-    <a href="trainers.php">Manage Trainers</a> |
     <a href="logout.php">Logout</a>
+    <br>
+    <a href="index.php">teszt</a>
 </body>
 </html>
