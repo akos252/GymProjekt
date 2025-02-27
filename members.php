@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add"])) {
     $trainer_id = $_POST['trainer_id'];
 
     $sql = "INSERT INTO member (member_id, name, dob, age, package, mobilenum, trainer_id) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+            VALUES ($member_id, $name, $dob, $age, $package, $mobilenum, $trainer_id)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssisss", $member_id, $name, $dob, $age, $package, $mobilenum, $trainer_id);
     $stmt->execute();
