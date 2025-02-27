@@ -1,0 +1,81 @@
+ PMA_token |s:32:"446031792b423a70305c4221783d2568"; HMAC_secret |s:16:"Skn:UZgkoo!7LF+7";browser_access_time|a:2:{s:7:"default";i:1740663867;s:36:"e61464e9-ef54-4f9f-082c-b706bca4fe4f";i:1740664914;}relation|a:1:{i:1;a:41:{s:7:"version";s:5:"5.2.1";s:4:"user";s:4:"root";s:2:"db";s:10:"phpmyadmin";s:8:"bookmark";s:13:"pma__bookmark";s:15:"central_columns";s:20:"pma__central_columns";s:11:"column_info";s:16:"pma__column_info";s:17:"designer_settings";s:22:"pma__designer_settings";s:16:"export_templates";s:21:"pma__export_templates";s:8:"favorite";s:13:"pma__favorite";s:7:"history";s:12:"pma__history";s:16:"navigationhiding";s:21:"pma__navigationhiding";s:9:"pdf_pages";s:14:"pma__pdf_pages";s:6:"recent";s:11:"pma__recent";s:8:"relation";s:13:"pma__relation";s:13:"savedsearches";s:18:"pma__savedsearches";s:12:"table_coords";s:17:"pma__table_coords";s:10:"table_info";s:15:"pma__table_info";s:13:"table_uiprefs";s:18:"pma__table_uiprefs";s:8:"tracking";s:13:"pma__tracking";s:10:"userconfig";s:15:"pma__userconfig";s:10:"usergroups";s:15:"pma__usergroups";s:5:"users";s:10:"pma__users";s:12:"bookmarkwork";b:1;s:8:"mimework";b:1;s:18:"centralcolumnswork";b:1;s:8:"commwork";b:1;s:9:"menuswork";b:1;s:20:"designersettingswork";b:1;s:11:"displaywork";b:1;s:19:"exporttemplateswork";b:1;s:12:"favoritework";b:1;s:7:"navwork";b:1;s:7:"pdfwork";b:1;s:10:"recentwork";b:1;s:7:"relwork";b:1;s:17:"savedsearcheswork";b:1;s:11:"historywork";b:1;s:12:"trackingwork";b:1;s:11:"uiprefswork";b:1;s:14:"userconfigwork";b:1;s:8:"allworks";b:1;}}tmpval|a:14:{s:14:"favoriteTables";a:1:{i:1;a:0:{}}s:12:"recentTables";a:1:{i:1;a:0:{}}s:5:"query";a:10:{s:32:"01332647ed9de3fb19084fd66d8073dd";a:8:{s:3:"sql";s:384:"--
+-- A tábla adatainak kiíratása `member`
+--
+
+INSERT INTO `member` (`member_id`, `name`, `dob`, `age`, `package`, `expDate`, `mobilenum`, `trainer_id`) VALUES
+('2', 'MATIAS', '2020-01-01', 12, 'gangszta', NULL, '98232232', '1'),
+('3', 'Akhos', '1979-07-13', 100, 'None', NULL, '+43321239', ''),
+('4', 'CHordas', '1020-02-27', 1004, 'könnyűsúlyú', NULL, 'nincs', 'van');";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"dcb665fe94c69577a8e83f1aeb5ca123";a:8:{s:3:"sql";s:355:"-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `trainer`
+--
+
+CREATE TABLE `trainer` (
+  `trainer_id` varchar(50) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `time` varchar(50) NOT NULL,
+  `mobilenum` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"3e170cd65453af6b206091fd80ddc2a6";a:8:{s:3:"sql";s:169:"--
+-- Indexek a kiírt táblákhoz
+--
+
+--
+-- A tábla indexei `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"912c08585629196f0a5bee6a74c7ca97";a:8:{s:3:"sql";s:137:"--
+-- A tábla indexei `member`
+--
+ALTER TABLE `member`
+  ADD PRIMARY KEY (`member_id`),
+  ADD UNIQUE KEY `mobilenum` (`mobilenum`);";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"23e8d38f1b506151dfa09e8023c19b6d";a:8:{s:3:"sql";s:140:"--
+-- A tábla indexei `trainer`
+--
+ALTER TABLE `trainer`
+  ADD PRIMARY KEY (`trainer_id`),
+  ADD UNIQUE KEY `mobilenum` (`mobilenum`);";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"6c9f75ee01a6d3f8960cdf4ec5bb8ab6";a:8:{s:3:"sql";s:189:"--
+-- A kiírt táblák AUTO_INCREMENT értéke
+--
+
+--
+-- AUTO_INCREMENT a táblához `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"80dfa81728557667a10554e543bf1a38";a:8:{s:3:"sql";s:7:"COMMIT;";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"1b5c6d908a4446c4420e8ad943287f4e";a:8:{s:3:"sql";s:63:"/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"3a021c6198afd74503174a29c7f20f74";a:8:{s:3:"sql";s:65:"/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}s:32:"f0c59c2c425a98af4f84dcb9ce8769f1";a:8:{s:3:"sql";s:63:"/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;";s:12:"repeat_cells";i:100;s:8:"max_rows";i:25;s:3:"pos";i:0;s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;}}s:6:"pftext";s:1:"P";s:18:"relational_display";s:1:"K";s:9:"geoOption";s:4:"GEOM";s:14:"display_binary";b:1;s:12:"display_blob";b:0;s:19:"hide_transformation";b:0;s:3:"pos";i:0;s:8:"max_rows";i:25;s:12:"repeat_cells";i:100;s:18:"table_limit_offset";i:0;s:21:"table_limit_offset_db";s:5:"gymdb";}two_factor_check|b:1;cache|a:3:{s:8:"server_1";a:4:{s:15:"userprefs_mtime";i:1740663509;s:14:"userprefs_type";s:2:"db";s:12:"config_mtime";i:1447170388;s:9:"userprefs";a:2:{s:7:"Console";a:1:{s:4:"Mode";s:8:"collapse";}s:4:"lang";s:2:"hu";}}s:13:"server_1_root";a:15:{s:17:"is_create_db_priv";b:1;s:14:"is_reload_priv";b:1;s:12:"db_to_create";s:0:"";s:30:"dbs_where_create_table_allowed";a:1:{i:0;s:1:"*";}s:11:"dbs_to_test";b:0;s:9:"proc_priv";b:1;s:10:"table_priv";b:1;s:8:"col_priv";b:1;s:7:"db_priv";b:1;s:11:"binary_logs";a:0:{}s:18:"menu-levels-server";a:13:{s:9:"databases";s:12:"Adatbázisok";s:3:"sql";s:3:"SQL";s:6:"status";s:8:"Állapot";s:6:"rights";s:14:"Felhasználók";s:6:"export";s:12:"Exportálás";s:6:"import";s:12:"Importálás";s:8:"settings";s:14:"Beállítások";s:6:"binlog";s:15:"Bináris napló";s:11:"replication";s:16:"Többszörözés";s:4:"vars";s:10:"Változók";s:7:"charset";s:16:"Karakterkészlet";s:7:"plugins";s:14:"Bővítmények";s:6:"engine";s:7:"Motorok";}s:14:"menu-levels-db";a:14:{s:9:"structure";s:9:"Szerkezet";s:3:"sql";s:3:"SQL";s:6:"search";s:8:"Keresés";s:5:"query";s:12:"Lekérdezés";s:6:"export";s:12:"Exportálás";s:6:"import";s:12:"Importálás";s:9:"operation";s:10:"Műveletek";s:10:"privileges";s:5:"Jogok";s:8:"routines";s:11:"Eljárások";s:6:"events";s:10:"Események";s:8:"triggers";s:17:"Eseményindítók";s:8:"tracking";s:9:"Követés";s:8:"designer";s:8:"Tervező";s:15:"central_columns";s:18:"Központi oszlopok";}s:12:"is_superuser";b:1;s:14:"mysql_cur_user";s:14:"root@localhost";s:12:"is_grantuser";b:1;}s:13:"version_check";a:2:{s:8:"response";s:411:"{
+    "version": "5.2.2",
+    "date": "2025-01-21",
+    "releases": [
+        {
+            "version": "5.2.2",
+            "date": "2025-01-21",
+            "php_versions": ">=7.2,<8.4",
+            "mysql_versions": ">=5.5"
+        },
+        {
+            "version": "4.9.11",
+            "date": "2023-02-08",
+            "php_versions": ">=5.5,<8.0",
+            "mysql_versions": ">=5.5"
+        }
+    ]
+}";s:9:"timestamp";i:1740663047;}}git_location|N;is_git_revision|b:0;ConfigFile1|a:2:{s:7:"Console";a:1:{s:4:"Mode";s:8:"collapse";}s:7:"Servers";a:1:{i:1;a:2:{s:7:"only_db";s:0:"";s:7:"hide_db";s:0:"";}}}debug|a:0:{}__upload_status|a:1:{s:7:"handler";s:47:"PhpMyAdmin\Plugins\Import\Upload\UploadNoplugin";}Import_message|a:2:{s:7:"message";s:229:"<div class="alert alert-success" role="alert">
+  <img src="themes/dot.gif" title="" alt="" class="icon ic_s_success"> <em>Az importálás sikeresen befejeződött, 21 lekérdezés került végrehajtásra.</em> (gymdb.sql)
+</div>
+";s:11:"go_back_url";s:41:"index.php?route=/database/import&db=gymdb";}is_multi_query|b:1;sql_history|a:2:{i:0;a:3:{s:2:"db";s:0:"";s:5:"table";s:0:"";s:8:"sqlquery";s:387:"--
+-- Adatbázis: `gymdb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `gym`
+--
+
+CREATE TABLE `gym` (
+  `gym_id` varchar(20) NOT NULL,
+  `gym_name` varchar(30) NOT NULL,
+  `gym_address` varchar(150) NOT NULL,
+  `gym_type` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";}i:1;a:3:{s:2:"db";s:5:"gymdb";s:5:"table";s:0:"";s:8:"sqlquery";s:63:"/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;";}}flashMessages|a:0:{}errors|a:0:{}
