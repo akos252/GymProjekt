@@ -1093,6 +1093,6 @@ echo _gettext("Export");
 
     public function getSourceContext()
     {
-        return new Source("", "export.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\export.twig");
+        return new Source("", "export.twig", "C:\\Users\\Felhasznalo3\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\export.twig");
     }
 }

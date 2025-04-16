@@ -67,6 +67,6 @@ class __TwigTemplate_9b42c46c12b87be48556db6534cb34d8a7bb5b2644d45a89de040a8018b
 
     public function getSourceContext()
     {
-        return new Source("", "config/form_display/group_header.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\config\\form_display\\group_header.twig");
+        return new Source("", "config/form_display/group_header.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\config\\form_display\\group_header.twig");
     }
 }

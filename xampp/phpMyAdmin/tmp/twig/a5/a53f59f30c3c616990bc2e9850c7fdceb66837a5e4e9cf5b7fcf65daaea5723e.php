@@ -128,6 +128,6 @@ class __TwigTemplate_4428bbbc3322ccfa4cc72d7251d932126eda8de44b81e89ab71f21ca989
 
     public function getSourceContext()
     {
-        return new Source("", "scripts.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\scripts.twig");
+        return new Source("", "scripts.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\scripts.twig");
     }
 }

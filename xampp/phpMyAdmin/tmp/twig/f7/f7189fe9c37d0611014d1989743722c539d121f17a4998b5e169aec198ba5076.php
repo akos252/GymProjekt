@@ -83,6 +83,6 @@ class __TwigTemplate_52750aac7b11979535c2fc4dd9ecf8af43fd8f27c0bb78645180ea21fce
 
     public function getSourceContext()
     {
-        return new Source("", "navigation/tree/state.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\navigation\\tree\\state.twig");
+        return new Source("", "navigation/tree/state.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\navigation\\tree\\state.twig");
     }
 }

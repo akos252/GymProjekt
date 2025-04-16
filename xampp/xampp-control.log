@@ -1,0 +1,165 @@
+10:18:32  [main] 	Initializing Control Panel
+10:18:32  [main] 	Windows Version:  Enterprise  64-bit
+10:18:32  [main] 	XAMPP Version: 8.0.30
+10:18:32  [main] 	Control Panel Version: 3.3.0  [ Compiled: Apr 6th 2021 ]
+10:18:32  [main] 	You are not running with administrator rights! This will work for
+10:18:32  [main] 	most application stuff but whenever you do something with services
+10:18:32  [main] 	there will be a security dialogue or things will break! So think 
+10:18:32  [main] 	about running this application with administrator rights!
+10:18:32  [main] 	XAMPP Installation Directory: "c:\users\felhasznalo3\desktop\gymprojekt\xampp\"
+10:18:32  [main] 	Checking for prerequisites
+10:18:34  [main] 	All prerequisites found
+10:18:34  [main] 	Initializing Modules
+10:18:35  [Apache] 	XAMPP Apache is already running on port 80
+10:18:35  [Apache] 	XAMPP Apache is already running on port 443
+10:18:35  [mysql] 	XAMPP MySQL is already running on port 3306
+10:18:35  [main] 	Starting Check-Timer
+10:18:35  [main] 	Control Panel Ready
+12:14:59  [Apache] 	Status change detected: stopped
+12:14:59  [Apache] 	Error: Apache shutdown unexpectedly.
+12:14:59  [Apache] 	This may be due to a blocked port, missing dependencies, 
+12:14:59  [Apache] 	improper privileges, a crash, or a shutdown by another method.
+12:14:59  [Apache] 	Press the Logs button to view error logs and check
+12:14:59  [Apache] 	the Windows Event Viewer for more clues
+12:14:59  [Apache] 	If you need more help, copy and post this
+12:14:59  [Apache] 	entire log window on the forums
+12:14:59  [mysql] 	Status change detected: stopped
+12:14:59  [mysql] 	Error: MySQL shutdown unexpectedly.
+12:14:59  [mysql] 	This may be due to a blocked port, missing dependencies, 
+12:14:59  [mysql] 	improper privileges, a crash, or a shutdown by another method.
+12:14:59  [mysql] 	Press the Logs button to view error logs and check
+12:14:59  [mysql] 	the Windows Event Viewer for more clues
+12:14:59  [mysql] 	If you need more help, copy and post this
+12:14:59  [mysql] 	entire log window on the forums
+12:15:07  [main] 	Deinitializing Modules
+12:15:07  [main] 	Deinitializing Control Panel
+
+9:22:19  [main] 	Initializing Control Panel
+9:22:19  [main] 	Windows Version:  Enterprise  64-bit
+9:22:19  [main] 	XAMPP Version: 8.0.30
+9:22:19  [main] 	Control Panel Version: 3.3.0  [ Compiled: Apr 6th 2021 ]
+9:22:19  [main] 	You are not running with administrator rights! This will work for
+9:22:19  [main] 	most application stuff but whenever you do something with services
+9:22:19  [main] 	there will be a security dialogue or things will break! So think 
+9:22:19  [main] 	about running this application with administrator rights!
+9:22:19  [main] 	XAMPP Installation Directory: "c:\users\felhasznalo3\desktop\gymprojekt\xampp\"
+9:22:19  [main] 	Checking for prerequisites
+9:22:22  [main] 	All prerequisites found
+9:22:22  [main] 	Initializing Modules
+9:22:22  [main] 	Starting Check-Timer
+9:22:22  [main] 	Control Panel Ready
+9:22:24  [mysql] 	Attempting to start MySQL app...
+9:22:24  [mysql] 	Status change detected: running
+9:22:25  [Apache] 	Attempting to start Apache app...
+9:22:25  [Apache] 	Status change detected: running
+12:14:58  [Apache] 	Attempting to stop Apache (PID: 14868)
+12:14:58  [Apache] 	Attempting to stop Apache (PID: 11560)
+12:14:59  [Apache] 	Status change detected: stopped
+12:14:59  [mysql] 	Attempting to stop MySQL app...
+12:14:59  [mysql] 	Status change detected: stopped
+12:15:08  [main] 	Deinitializing Modules
+12:15:08  [main] 	Deinitializing Control Panel
+
+9:55:36  [main] 	Initializing Control Panel
+9:55:36  [main] 	Windows Version:  Enterprise  64-bit
+9:55:36  [main] 	XAMPP Version: 8.0.30
+9:55:36  [main] 	Control Panel Version: 3.3.0  [ Compiled: Apr 6th 2021 ]
+9:55:36  [main] 	You are not running with administrator rights! This will work for
+9:55:36  [main] 	most application stuff but whenever you do something with services
+9:55:36  [main] 	there will be a security dialogue or things will break! So think 
+9:55:36  [main] 	about running this application with administrator rights!
+9:55:36  [main] 	XAMPP Installation Directory: "c:\users\felhasznalo3\desktop\gymprojekt\xampp\"
+9:55:36  [main] 	Checking for prerequisites
+9:55:39  [main] 	All prerequisites found
+9:55:39  [main] 	Initializing Modules
+9:55:39  [mysql] 	XAMPP MySQL is already running on port 3306
+9:55:39  [main] 	Starting Check-Timer
+9:55:39  [main] 	Control Panel Ready
+9:55:41  [Apache] 	Attempting to start Apache app...
+9:55:42  [Apache] 	Status change detected: running
+12:38:36  [mysql] 	Attempting to stop MySQL app...
+12:38:36  [mysql] 	Status change detected: stopped
+12:38:37  [Apache] 	Attempting to stop Apache (PID: 9620)
+12:38:37  [Apache] 	Attempting to stop Apache (PID: 9144)
+12:38:37  [Apache] 	Status change detected: stopped
+12:38:42  [main] 	Deinitializing Modules
+12:38:42  [main] 	Deinitializing Control Panel
+
+11:00:58  [main] 	Initializing Control Panel
+11:00:58  [main] 	Windows Version:  Enterprise  64-bit
+11:00:58  [main] 	XAMPP Version: 8.0.30
+11:00:58  [main] 	Control Panel Version: 3.3.0  [ Compiled: Apr 6th 2021 ]
+11:00:58  [main] 	Running with Administrator rights - good!
+11:00:58  [main] 	XAMPP Installation Directory: "c:\users\rendszergazda\desktop\xampp\"
+11:00:58  [main] 	Checking for prerequisites
+11:00:58  [main] 	All prerequisites found
+11:00:58  [main] 	Initializing Modules
+11:00:58  [mysql] 	XAMPP MySQL is already running on port 3306
+11:00:58  [main] 	Starting Check-Timer
+11:00:58  [main] 	Control Panel Ready
+11:01:02  [mysql] 	Attempting to stop MySQL app...
+11:01:02  [mysql] 	Status change detected: stopped
+11:01:02  [Apache] 	Attempting to start Apache app...
+11:01:02  [Apache] 	Status change detected: running
+11:01:08  [mysql] 	Attempting to start MySQL app...
+11:01:08  [mysql] 	Status change detected: running
+11:55:09  [Apache] 	Attempting to stop Apache (PID: 9464)
+11:55:09  [Apache] 	Attempting to stop Apache (PID: 10060)
+11:55:10  [Apache] 	Status change detected: stopped
+11:55:10  [mysql] 	Attempting to stop MySQL app...
+11:55:10  [mysql] 	Status change detected: stopped
+11:55:17  [main] 	Deinitializing Modules
+11:55:17  [main] 	Deinitializing Control Panel
+
+12:10:58  [main] 	Initializing Control Panel
+12:10:58  [main] 	Windows Version:  Enterprise  64-bit
+12:10:58  [main] 	XAMPP Version: 8.0.30
+12:10:58  [main] 	Control Panel Version: 3.3.0  [ Compiled: Apr 6th 2021 ]
+12:10:58  [main] 	You are not running with administrator rights! This will work for
+12:10:58  [main] 	most application stuff but whenever you do something with services
+12:10:58  [main] 	there will be a security dialogue or things will break! So think 
+12:10:58  [main] 	about running this application with administrator rights!
+12:10:58  [main] 	XAMPP Installation Directory: "c:\users\felhasznalo3\desktop\gymprojekt\xampp\"
+12:10:58  [main] 	Checking for prerequisites
+12:10:58  [main] 	All prerequisites found
+12:10:58  [main] 	Initializing Modules
+12:10:58  [main] 	Starting Check-Timer
+12:10:58  [main] 	Control Panel Ready
+12:11:00  [Apache] 	Attempting to start Apache app...
+12:11:00  [Apache] 	Status change detected: running
+12:11:00  [mysql] 	Attempting to start MySQL app...
+12:11:01  [mysql] 	Status change detected: running
+13:05:07  [mysql] 	Attempting to stop MySQL app...
+13:05:07  [mysql] 	Status change detected: stopped
+13:05:07  [Apache] 	Attempting to stop Apache (PID: 3528)
+13:05:07  [Apache] 	Attempting to stop Apache (PID: 13084)
+13:05:07  [Apache] 	Status change detected: stopped
+13:05:13  [main] 	Deinitializing Modules
+13:05:13  [main] 	Deinitializing Control Panel
+
+10:32:56  [main] 	Initializing Control Panel
+10:32:56  [main] 	Windows Version:  Enterprise  64-bit
+10:32:56  [main] 	XAMPP Version: 8.0.30
+10:32:56  [main] 	Control Panel Version: 3.3.0  [ Compiled: Apr 6th 2021 ]
+10:32:56  [main] 	You are not running with administrator rights! This will work for
+10:32:56  [main] 	most application stuff but whenever you do something with services
+10:32:56  [main] 	there will be a security dialogue or things will break! So think 
+10:32:56  [main] 	about running this application with administrator rights!
+10:32:56  [main] 	XAMPP Installation Directory: "c:\users\felhasznalo3\desktop\gymprojekt\xampp\"
+10:32:56  [main] 	Checking for prerequisites
+10:32:59  [main] 	All prerequisites found
+10:32:59  [main] 	Initializing Modules
+10:32:59  [main] 	Starting Check-Timer
+10:32:59  [main] 	Control Panel Ready
+10:33:01  [Apache] 	Attempting to start Apache app...
+10:33:01  [Apache] 	Status change detected: running
+10:33:01  [mysql] 	Attempting to start MySQL app...
+10:33:02  [mysql] 	Status change detected: running
+11:33:59  [mysql] 	Attempting to stop MySQL app...
+11:34:00  [Apache] 	Attempting to stop Apache (PID: 12924)
+11:34:00  [Apache] 	Attempting to stop Apache (PID: 7452)
+11:34:00  [Apache] 	Status change detected: stopped
+11:34:00  [mysql] 	Status change detected: stopped
+11:34:03  [main] 	Deinitializing Modules
+11:34:03  [main] 	Deinitializing Control Panel
+

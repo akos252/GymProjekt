@@ -59,6 +59,6 @@ class __TwigTemplate_f9052c4416f33080410a2b29149c9823dea606024d8957502a5995f18df
 
     public function getSourceContext()
     {
-        return new Source("", "database/structure/collation_definition.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\database\\structure\\collation_definition.twig");
+        return new Source("", "database/structure/collation_definition.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\database\\structure\\collation_definition.twig");
     }
 }

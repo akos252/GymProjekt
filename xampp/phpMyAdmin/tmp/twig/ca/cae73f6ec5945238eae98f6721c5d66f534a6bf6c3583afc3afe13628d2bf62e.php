@@ -88,6 +88,6 @@ class __TwigTemplate_8999582fc6acb037c6888ae33fb34c3fca3fdf122121b39978969e514c0
 
     public function getSourceContext()
     {
-        return new Source("", "console/toolbar.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\console\\toolbar.twig");
+        return new Source("", "console/toolbar.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\console\\toolbar.twig");
     }
 }

@@ -68,6 +68,6 @@ class __TwigTemplate_0a365c5a9c0fc0d35a7dc9e8836e6bd2b0f1c6aa9725c353cb919cb89a1
 
     public function getSourceContext()
     {
-        return new Source("", "navigation/tree/quick_warp.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\navigation\\tree\\quick_warp.twig");
+        return new Source("", "navigation/tree/quick_warp.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\navigation\\tree\\quick_warp.twig");
     }
 }

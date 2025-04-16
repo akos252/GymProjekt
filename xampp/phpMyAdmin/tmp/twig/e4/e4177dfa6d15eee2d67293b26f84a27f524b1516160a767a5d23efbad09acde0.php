@@ -136,6 +136,6 @@ class __TwigTemplate_ccc86325de1e2c98db5c14f97773c3a8b0cafd5ab82bf9d9ebaa023f41f
 
     public function getSourceContext()
     {
-        return new Source("", "database/structure/index.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\database\\structure\\index.twig");
+        return new Source("", "database/structure/index.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\database\\structure\\index.twig");
     }
 }

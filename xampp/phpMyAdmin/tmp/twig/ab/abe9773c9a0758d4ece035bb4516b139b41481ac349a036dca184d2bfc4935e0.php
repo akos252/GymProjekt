@@ -94,6 +94,6 @@ class __TwigTemplate_5d5ef89d937efb3304ad0aff25d6fa14f829a7d0b2b5b7f096eb94cf9e2
 
     public function getSourceContext()
     {
-        return new Source("", "console/query_action.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\console\\query_action.twig");
+        return new Source("", "console/query_action.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\console\\query_action.twig");
     }
 }

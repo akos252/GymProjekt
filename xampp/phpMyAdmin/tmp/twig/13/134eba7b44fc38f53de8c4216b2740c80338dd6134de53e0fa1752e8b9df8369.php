@@ -174,6 +174,6 @@ echo _gettext("Table:");
 
     public function getSourceContext()
     {
-        return new Source("", "menu/breadcrumbs.twig", "C:\\Users\\user\\Desktop\\GymProjekt\\xampp\\phpMyAdmin\\templates\\menu\\breadcrumbs.twig");
+        return new Source("", "menu/breadcrumbs.twig", "C:\\Users\\Rendszergazda\\Desktop\\xampp\\phpMyAdmin\\templates\\menu\\breadcrumbs.twig");
     }
 }
