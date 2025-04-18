@@ -124,3 +124,52 @@ select {
     color: white;
     font-size: 16px;
 }
+.checkbox-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.checkbox-list label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 30px;
+    margin: 10px auto;
+    max-width: 400px;
+    justify-content: center;
+}
+
+
+.styled-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    background: #2a2a2a;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+
+.styled-checkbox:hover {
+    background: #333;
+}
+
+.styled-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: red; /* native styling (modern browsers) */
+    cursor: pointer;
+}
+.styled-checkbox input[type="checkbox"]:checked {
+    transform: scale(1.1);
+    transition: transform 0.1s ease;
+}

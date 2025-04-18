@@ -52,11 +52,14 @@ $login_text = isset($_SESSION['username']) ? "Profile" : "Login";
             </a>
         </div>
         <div class="nav-center">
-            <a href="gyms.php">View gyms</a>
-            <a href="add.php">add</a>
-            <a href="add_trainer.php">addtrainer</a>
-            <a href="owner_dashboard.php">Manage your gyms</a>
-        </div>
+        <a href="gyms.php">View Gyms</a>
+        <a href="add.php">Add</a>
+        <a href="#">Placeholder</a>
+
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
+            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
+        <?php endif; ?>
+    </div>
         <div class="nav-right">
             <a href="profile.php" class="btn"><?php echo "Profile"; ?></a>
         </div>
