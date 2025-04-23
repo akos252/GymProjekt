@@ -26,7 +26,7 @@ if (!$gym) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_SESSION['user_id']; // ✅ Uses `id` from `login` table
+    $user_id = $_SESSION['user_id']; // Uses `id` from `login` table
     $name = trim($_POST['name']);
     $duration = intval($_POST['membership_duration']);
 

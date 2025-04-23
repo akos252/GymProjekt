@@ -173,3 +173,28 @@ select {
     transform: scale(1.1);
     transition: transform 0.1s ease;
 }
+.tcheckbox-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 30px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.tcheckbox-grid label {
+    border: 1px solid #888; /* <-- Add border */
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 230px;
+    color: white;
+    background: transparent;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.tcheckbox-grid input[type="checkbox"] {
+    accent-color: red; /* Optional for red checkboxes */
+}

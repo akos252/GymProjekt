@@ -190,10 +190,11 @@ if (isset($_POST['update_trainer_btn'])) {
                 <?php endwhile; ?>
             </div>
         </div>
-<!-- LIST TRAINERS -->
-<h3 style="margin-top: 40px; text-align: center;">My Trainers</h3>
-<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px; margin: 0 auto;">
-<?php
+        <!-- LIST TRAINERS -->
+        <h3 style="margin-top: 40px; text-align: center;">My Trainers</h3>
+        <div
+            style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px; margin: 0 auto;">
+            <?php
 $trainers = $conn->prepare("
     SELECT DISTINCT t.trainer_id, t.name
     FROM trainer t
@@ -208,106 +209,160 @@ $trainers_result = $trainers->get_result();
 if ($trainers_result->num_rows > 0):
     while ($trainer = $trainers_result->fetch_assoc()):
 ?>
-    <div style="width: 40%; min-width: 250px; background: #1e1e1e; padding: 15px; border-radius: 8px; text-align: center;">
-        <a href="view_trainer.php?trainer_id=<?php echo $trainer['trainer_id']; ?>" 
-           style="text-decoration: none; color: red; font-weight: bold; font-size: 16px;">
-            <?php echo htmlspecialchars($trainer['name']); ?>
-        </a>
-    </div>
-<?php endwhile; else: ?>
-    <p style="color: gray;">No trainers found.</p>
-<?php endif; ?>
-</div>
+            <div
+                style="width: 40%; min-width: 250px; background: #1e1e1e; padding: 15px; border-radius: 8px; text-align: center;">
+                <a href="view_trainer.php?trainer_id=<?php echo $trainer['trainer_id']; ?>"
+                    style="text-decoration: none; color: red; font-weight: bold; font-size: 16px;">
+                    <?php echo htmlspecialchars($trainer['name']); ?>
+                </a>
+            </div>
+            <?php endwhile; else: ?>
+            <p style="color: gray;">No trainers found.</p>
+            <?php endif; ?>
+        </div>
     </div>
     </div>
 
 
     <script>
-        document.getElementById("add-gym-form").addEventListener("submit", function (e) {
-            e.preventDefault();
+// Load all gyms
+function loadGyms() {
+    fetch("api/gyms.php")
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById("gym-list");
+            container.innerHTML = "";
 
-            const form = e.target;
-            const formData = new FormData(form);
+            const wrapper = document.createElement("div");
+            wrapper.style = "display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-around;";
 
-            fetch("owner_dashboard.php", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(res => res.text())
-                .then(data => {
-                    document.getElementById("add-gym-response").innerHTML = data;
-                    form.reset();
+            data.forEach(gym => {
+                const card = document.createElement("div");
+                card.style = `
+                    background: #1e1e1e;
+                    padding: 20px;
+                    border-radius: 10px;
+                    width: 40%;
+                    text-align: center;
+                `;
 
-                    // Refresh the gym list
-                    fetch("fetch_gyms.php")
-                        .then(res => res.text())
-                        .then(gymHTML => {
-                            document.getElementById("gym-list").innerHTML = `
-                    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-around;">
-                        ${gymHTML}
-                    </div>`;
-                        });
-                })
-                .catch(() => {
-                    document.getElementById("add-gym-response").innerHTML =
-                        "<p style='color:red;'>Error adding gym.</p>";
-                });
+                card.innerHTML = `
+                    <h3 style="color: red;">${gym.gym_name}</h3>
+                    <p style="font-weight: bold;">${gym.gym_type}</p>
+                    <p style="color: #bbb;">${gym.gym_address}</p>
+
+                    <a href="view_gym.php?gym_id=${gym.gym_id}" 
+                       style="display: inline-block; margin-top: 10px; background: red; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px;">
+                        View Trainers
+                    </a>
+
+                    <button onclick="editGym('${gym.gym_id}', '${gym.gym_name}', '${gym.gym_address}', '${gym.gym_type}')"
+                            style="margin-top: 10px; background: #555; color: white; padding: 8px 12px; border-radius: 5px; border: none; cursor: pointer;">
+                        ✏️ Edit
+                    </button><br>
+
+                    <button class="btn delete-gym-btn"
+                        data-gym-id="${gym.gym_id}"
+                        style="margin-top: 10px; background: #a00; color: white; padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer;">
+                        🗑️ Delete
+                    </button>
+                `;
+
+                wrapper.appendChild(card);
+            });
+
+            container.appendChild(wrapper);
         });
+}
 
-        document.getElementById("gym-list").addEventListener("click", function (e) {
-            if (e.target && e.target.classList.contains("delete-gym-btn")) {
-                const gymId = e.target.dataset.gymId;
+// Add gym
+document.getElementById("add-gym-form").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-                if (!confirm("Are you sure you want to delete this gym? This cannot be undone.")) return;
+    const form = e.target;
+    const data = {
+        gym_name: form.gym_name.value,
+        gym_address: form.gym_address.value,
+        gym_type: form.gym_type.value
+    };
 
-                fetch("delete_gym.php", {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: "gym_id=" + encodeURIComponent(gymId)
-                    })
-                    .then(res => res.text())
-                    .then(data => {
-                        if (data.trim() === "deleted") {
-                            fetch("fetch_gyms.php")
-                                .then(res => res.text())
-                                .then(gymHTML => {
-                                    document.getElementById("gym-list").innerHTML = `
-                            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-around;">
-                                ${gymHTML}
-                            </div>`;
-                                });
-                        } else {
-                            alert("Error deleting gym: " + data);
-                        }
-                    });
+    fetch("api/gyms.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(response => {
+        if (response.status === "success") {
+            form.reset();
+            loadGyms();
+        } else {
+            alert(response.error || "Failed to add gym.");
+        }
+    });
+});
+
+// Delete gym
+document.getElementById("gym-list").addEventListener("click", function (e) {
+    if (e.target && e.target.classList.contains("delete-gym-btn")) {
+        const gymId = e.target.dataset.gymId;
+
+        if (!confirm("Are you sure you want to delete this gym?")) return;
+
+        fetch("api/gyms.php", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({ gym_id: gymId })
+        })
+        .then(res => res.json())
+        .then(response => {
+            if (response.status === "deleted") {
+                loadGyms();
+            } else {
+                alert(response.error || "Failed to delete gym.");
             }
         });
-        document.addEventListener("click", function (e) {
-            if (e.target.classList.contains("delete-trainer-btn")) {
-                const trainerId = e.target.dataset.trainerId;
+    }
+});
 
-                if (!confirm("Are you sure you want to delete this trainer from all gyms?")) return;
+// Edit gym
+function editGym(gym_id, name, address, type) {
+    const newName = prompt("Edit Gym Name", name);
+    const newAddress = prompt("Edit Address", address);
+    const newType = prompt("Edit Type", type);
 
-                fetch("delete_trainer.php", {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: "trainer_id=" + encodeURIComponent(trainerId)
-                    })
-                    .then(res => res.text())
-                    .then(data => {
-                        if (data.trim() === "deleted") {
-                            location.reload();
-                        } else {
-                            alert("Error deleting trainer: " + data);
-                        }
-                    });
+    if (newName && newAddress && newType) {
+        fetch("api/gyms.php", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                gym_id,
+                gym_name: newName,
+                gym_address: newAddress,
+                gym_type: newType
+            })
+        })
+        .then(res => res.json())
+        .then(response => {
+            if (response.status === "updated") {
+                loadGyms();
+            } else {
+                alert(response.error || "Failed to update gym.");
             }
         });
-    </script>
+    }
+}
+
+// Initial load
+loadGyms();
+</script>
+
 </body>
 
 </html>
