@@ -109,20 +109,25 @@ if (isset($_POST['update_trainer_btn'])) {
 
 <body>
 
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="index.php"><img src="asstets/logo.png" alt="GMS Logo" class="logo"></a>
-        </div>
-        <div class="nav-center">
-            <a href="owner_dashboard.php">Dashboard</a>
-            <a href="gyms.php">View gyms</a>
-            <a href="#">Placeholder</a>
-            <a href="#">Placeholder</a>
-        </div>
-        <div class="nav-right">
-            <a href="logout.php" class="btn">Logout</a>
-        </div>
-    </nav>
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="index.php">
+            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
+        </a>
+    </div>
+    <div class="nav-center">
+        <a href="gyms.php">View Gyms</a>
+
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
+            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
+        <?php endif; ?>
+    </div>
+    <div class="nav-right">
+        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
+            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
+        </a>
+    </div>
+</nav>
 
     <div class="container" style="max-width: 900px; margin: auto;">
         <h2 style="color: red;">Welcome, Gym Owner</h2>

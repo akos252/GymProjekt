@@ -39,17 +39,21 @@ $result = $stmt->get_result();
         </a>
     </div>
     <div class="nav-center">
-        <a href="gyms.php">View gyms</a>
-        <a href="add.php">Add</a>
-        <a href="#">Placeholder</a>
-        <a href="#">Placeholder</a>
+        <a href="gyms.php">View Gyms</a>
+
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
+            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
+        <?php endif; ?>
     </div>
     <div class="nav-right">
-        <a href="profile.php" class="btn">Profile</a>
+        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
+            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
+        </a>
     </div>
 </nav>
 
 <div style="max-width: 900px; margin: auto; padding: 20px;" class="container">
+    <h2>Profile</h2>
     <h2>Logged in as <strong><?php echo htmlspecialchars($username); ?></strong></h2>
 
     <h3>My Gyms</h3>

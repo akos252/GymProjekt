@@ -46,21 +46,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <nav class="navbar">
-        <div class="nav-left">
-            <a href="index.php">
-                <img src="asstets/logo.png" alt="GMS Logo" class="logo">
-            </a>
-        </div>
-        <div class="nav-center">
-            <a href="gyms.php">View gyms</a>
-            <a href="add.php">add</a>
-            <a href="#">Placeholder</a>
-            <a href="#">Placeholder</a>
-        </div>
-        <div class="nav-right">
-            <a href="profile.php" class="btn"><?php echo "Profile"; ?></a>
-        </div>
-    </nav>
+    <div class="nav-left">
+        <a href="index.php">
+            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
+        </a>
+    </div>
+    <div class="nav-center">
+        <a href="gyms.php">View Gyms</a>
+
+        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
+            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
+        <?php endif; ?>
+    </div>
+    <div class="nav-right">
+        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
+            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
+        </a>
+    </div>
+</nav>
     <div class="container">
         <h2>Register</h2>
         <form method="post">
