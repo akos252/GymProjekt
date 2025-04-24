@@ -1,5 +1,3 @@
-
-
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
@@ -197,4 +195,106 @@ select {
 
 .tcheckbox-grid input[type="checkbox"] {
     accent-color: red; /* Optional for red checkboxes */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        margin: 0;
+        padding-top: 70px;
+        background-position: center center;
+        background-size: cover;
+    }
+
+    .navbar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 12px;
+    }
+
+    .nav-left {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-left img.logo {
+        height: 34px;
+        margin: 0;
+    }
+
+    .hamburger {
+        display: block;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .nav-center {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #1e1e1e;
+        margin-top: 10px;
+    }
+
+    .nav-center.show {
+        display: flex;
+    }
+
+    .nav-center a {
+        display: block;
+        padding: 10px 0;
+        font-size: 15px;
+        border-top: 1px solid #333;
+        border-bottom: 1px solid #333;
+    }
+
+    .nav-right {
+        display: none; /* hide profile/logout up top */
+    }
+
+    .container {
+        width: 94%;
+        max-width: 480px;
+        background: rgba(0, 0, 0, 0.85);
+        padding: 18px;
+        border-radius: 10px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .btn {
+        width: 90%;
+        font-size: 15px;
+        padding: 8px 12px;
+        margin: 10px auto;
+    }
+
+    input, select {
+        width: 100%;
+        font-size: 15px;
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 1.5;
+        color: white;
+        margin: 8px 0;
+    }
+
+    strong {
+        color: #ddd;
+    }
+
+    .contact-info {
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    .contact-info span {
+        display: block;
+        margin: 5px 0;
+    }
 }
