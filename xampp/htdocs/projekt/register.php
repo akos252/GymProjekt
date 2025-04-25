@@ -1,69 +1,37 @@
 <?php 
 session_start();
 include "db.php";
+include "navbar.php";
+require_once "includes/user_functions.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    $confirm_password = trim($_POST['confirm_password']);
-    $mobilenum = trim($_POST['mobilenum']);
-    $dob = trim($_POST['dob']);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $mobilenum = $_POST['mobilenum'];
+    $dob = $_POST['dob'];
 
-    // Password match check
-    if ($password !== $confirm_password) {
-        $error = "Passwords do not match!";
+    $result = registerUser($conn, $username, $password, $confirm_password, $mobilenum, $dob);
+
+    if ($result === true) {
+        header("Location: login.php?registered=success");
+        exit();
     } else {
-        // Check if username already exists
-        $check_user = "SELECT * FROM login WHERE username = ? OR mobilenum = ?";
-        $stmt = $conn->prepare($check_user);
-        $stmt->bind_param("ss", $username, $mobilenum);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $error = "Username or mobile number already exists. Choose another!";
-        } else {
-            // Insert new user with username, password, mobile number, and date of birth
-            $insert_user = "INSERT INTO login (username, pwd, mobilenum, dob) VALUES (?, ?, ?, ?)";
-            $stmt = $conn->prepare($insert_user);
-            $stmt->bind_param("ssss", $username, $password, $mobilenum, $dob);
-            if ($stmt->execute()) {
-                header("Location: login.php?registered=success");
-                exit();
-            } else {
-                $error = "Registration failed. Try again!";
-            }
-        }
+        $error = $result;
     }
 }
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Register - Gym Management</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-left">
-        <a href="index.php">
-            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
-        </a>
-    </div>
-    <div class="nav-center">
-        <a href="gyms.php">View Gyms</a>
-
-        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
-            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
-        <?php endif; ?>
-    </div>
-    <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
-            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
-        </a>
-    </div>
-</nav>
     <div class="container">
         <h2>Register</h2>
         <form method="post">

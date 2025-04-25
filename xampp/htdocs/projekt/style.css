@@ -8,7 +8,7 @@ body {
     text-align: center;
     background-color: #121212;
     color: white;
-    background: url('asstets/gymbgpic.jpg') center/cover no-repeat fixed;
+    background: url('assets/gymbgpic.jpg') center/cover no-repeat fixed;
 }
 
 /* Navigation Bar */
@@ -34,6 +34,7 @@ body {
 .logo:hover {
     transform: rotate(20deg) scale(1.2);
 }
+
 /* Center Navigation Links */
 .nav-center a {
     margin: 0 15px;
@@ -57,7 +58,8 @@ body {
     border-radius: 5px;
     transition: background 0.3s;
 }
-.nav-right{
+
+.nav-right {
     margin-right: 10px;
 }
 
@@ -67,7 +69,7 @@ body {
 
 /* Main Content */
 .container {
-    background: rgba(0,0,0,0.75);
+    background: rgba(0, 0, 0, 0.75);
     color: white;
     padding: 20px;
     border-radius: 10px;
@@ -122,6 +124,7 @@ select {
     color: white;
     font-size: 16px;
 }
+
 .checkbox-list {
     display: flex;
     flex-direction: column;
@@ -136,6 +139,7 @@ select {
     gap: 10px;
     color: white;
 }
+
 .checkbox-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -164,13 +168,16 @@ select {
 .styled-checkbox input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    accent-color: red; /* native styling (modern browsers) */
+    accent-color: red;
+    /* native styling (modern browsers) */
     cursor: pointer;
 }
+
 .styled-checkbox input[type="checkbox"]:checked {
     transform: scale(1.1);
     transition: transform 0.1s ease;
 }
+
 .tcheckbox-grid {
     display: flex;
     flex-wrap: wrap;
@@ -180,7 +187,8 @@ select {
 }
 
 .tcheckbox-grid label {
-    border: 1px solid #888; /* <-- Add border */
+    border: 1px solid #888;
+    /* <-- Add border */
     padding: 10px 14px;
     border-radius: 6px;
     display: flex;
@@ -194,107 +202,138 @@ select {
 }
 
 .tcheckbox-grid input[type="checkbox"] {
-    accent-color: red; /* Optional for red checkboxes */
+    accent-color: red;
+    /* Optional for red checkboxes */
+}
+
+.introduction {
+    margin: 20px;
+    padding: 20px;
+    font-size: 20px
+}
+
+.gym-list-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+.gym-card {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    text-align: center;
+}
+
+.gym-name {
+    color: red;
+}
+
+.gym-type {
+    font-weight: bold;
+}
+
+.gym-address {
+    color: #bbb;
+}
+
+.edit-btn {
+    background-color: #555;
+}
+
+.delete-gym-btn {
+    background: #a00;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    padding: 8px 12px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     body {
-        margin: 0;
-        padding-top: 70px;
-        background-position: center center;
-        background-size: cover;
+        margin: 20px;
+        padding: 20px
     }
 
     .navbar {
         flex-direction: row;
-        align-items: center;
         justify-content: space-between;
-        padding: 6px 12px;
+        align-items: center;
+        padding: 8px 12px;
+        flex-wrap: wrap;
+    }
+
+    .nav-left,
+    .nav-center,
+    .nav-right {
+        display: flex;
+        align-items: center;
     }
 
     .nav-left {
-        display: flex;
-        align-items: center;
-    }
-
-    .nav-left img.logo {
-        height: 34px;
-        margin: 0;
-    }
-
-    .hamburger {
-        display: block;
-        font-size: 24px;
-        color: white;
-        cursor: pointer;
-        margin-right: 10px;
+        flex: 1;
+        justify-content: flex-start;
     }
 
     .nav-center {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: #1e1e1e;
-        margin-top: 10px;
-    }
-
-    .nav-center.show {
-        display: flex;
-    }
-
-    .nav-center a {
-        display: block;
-        padding: 10px 0;
-        font-size: 15px;
-        border-top: 1px solid #333;
-        border-bottom: 1px solid #333;
+        flex: 1;
+        justify-content: center;
     }
 
     .nav-right {
-        display: none; /* hide profile/logout up top */
+        flex: 1;
+        justify-content: flex-end;
     }
 
-    .container {
-        width: 94%;
-        max-width: 480px;
-        background: rgba(0, 0, 0, 0.85);
-        padding: 18px;
-        border-radius: 10px;
-        margin: 20px auto;
-        text-align: center;
+    .logo {
+        height: 40px;
+    }
+
+    .nav-center a,
+    .nav-right a {
+        margin: 0 5px;
+        font-size: 14px;
+        padding: 6px 10px;
+        white-space: nowrap;
     }
 
     .btn {
-        width: 90%;
-        font-size: 15px;
-        padding: 8px 12px;
-        margin: 10px auto;
+        font-size: 14px;
+        padding: 6px 10px;
     }
 
-    input, select {
-        width: 100%;
-        font-size: 15px;
+    .container {
+        width: 96%;
+        max-width: 100%;
+        padding: 10px 16px;
+        margin-top: 30px;
+
+    }
+
+    h1 {
+        font-size: 20px;
     }
 
     p {
+        font-size: 13px;
+    }
+
+    .introduction {
         font-size: 15px;
-        line-height: 1.5;
-        color: white;
-        margin: 8px 0;
+        margin: 10px 0;
+        line-height: 1.4;
     }
 
-    strong {
-        color: #ddd;
+    input {
+        width: 60%;
     }
 
-    .contact-info {
-        margin-top: 20px;
-        font-size: 14px;
-    }
-
-    .contact-info span {
-        display: block;
-        margin: 5px 0;
+    select {
+        width: 30%;
     }
 }

@@ -1,12 +1,12 @@
 <?php
 session_start();
 include "db.php";
+include "navbar.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Ensure the database table name and column names match your schema
     $sql = "SELECT id, username, user_type FROM login WHERE username = ? AND pwd = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ss", $username, $password);
@@ -30,42 +30,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Gym Login</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<!-- Navigation Bar -->
-<nav class="navbar">
-    <div class="nav-left">
-        <a href="index.php">
-            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
-        </a>
-    </div>
-    <div class="nav-center">
-        <a href="gyms.php">View Gyms</a>
 
-        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
-            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
-        <?php endif; ?>
-    </div>
-    <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
-            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
-        </a>
-    </div>
-</nav>
-</nav>
-    <div class = container>
+<div class="container">
     <h2>Login to Gym Management System</h2>
     <form id="login-form">
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <button class="btn" type="submit">Login</button>
-    <p id="login-error" style="color: red;"></p>
-</form>
-    <?php if (isset($error)) { echo "<p style='color:red;'>$error</p>"; } ?>
-    <br>Don't have an account yet? Register <a style="color: red;" href="register.php">here</a>
-    </div>
+        <input type="text" name="username" placeholder="Username" required><br>
+        <input type="password" name="password" placeholder="Password" required><br>
+        <button class="btn" type="submit">Login</button>
+        <p id="login-error" style="color: red;"></p>
+    </form>
+
+    <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
+
+    <p style="margin-top: 15px;">
+        Don't have an account yet? 
+        <a style="color: red;" href="register.php">Register here</a>
+    </p>
+</div>
     <script>
 document.getElementById("login-form").addEventListener("submit", function(e) {
     e.preventDefault();

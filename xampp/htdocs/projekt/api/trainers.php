@@ -3,6 +3,7 @@ session_start();
 header("Content-Type: application/json");
 include "../db.php";
 
+// Ensure only owners can access this API
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'owner') {
     http_response_code(403);
     echo json_encode(["error" => "Unauthorized"]);
@@ -14,7 +15,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
 
-    // GET ALL TRAINERS FOR THIS OWNER
+    //GET: Retrieve all trainers associated with this owner's gyms
     case "GET":
         $sql = "SELECT DISTINCT t.trainer_id, t.name, t.mobilenum
                 FROM trainer t
@@ -34,13 +35,13 @@ switch ($method) {
         echo json_encode($trainers);
         break;
 
-    // CREATE A TRAINER
+    //POST: Create a new trainer
     case "POST":
         $data = json_decode(file_get_contents("php://input"), true);
         $trainer_id = uniqid("T");
         $name = $data["name"];
         $mobilenum = $data["mobilenum"];
-        $image = ""; // Optional for now
+        $image = ""; // Image upload not handled via this API yet
 
         $sql = "INSERT INTO trainer (trainer_id, name, time, mobilenum, image) VALUES (?, ?, '', ?, ?)";
         $stmt = $conn->prepare($sql);
@@ -53,7 +54,7 @@ switch ($method) {
         }
         break;
 
-    // UPDATE PHONE NUMBER
+    //PUT: Update a trainer's mobile number
     case "PUT":
         parse_str(file_get_contents("php://input"), $_PUT);
         $trainer_id = $_PUT["trainer_id"];
@@ -70,11 +71,12 @@ switch ($method) {
         }
         break;
 
-    // DELETE TRAINER COMPLETELY
+    //DELETE: Remove trainer from all gyms and delete the trainer
     case "DELETE":
         parse_str(file_get_contents("php://input"), $_DELETE);
         $trainer_id = $_DELETE["trainer_id"];
 
+        // Check if this trainer belongs to one of the owner's gyms
         $check = $conn->prepare("SELECT tg.trainer_id FROM trainer_gym tg 
                                 JOIN gym g ON tg.gym_id = g.gym_id 
                                 WHERE tg.trainer_id = ? AND g.owner_id = ?");
@@ -88,11 +90,13 @@ switch ($method) {
             exit();
         }
 
+        // Delete trainer-gym mappings and the trainer itself
         $conn->query("DELETE FROM trainer_gym WHERE trainer_id = '$trainer_id'");
         $conn->query("DELETE FROM trainer WHERE trainer_id = '$trainer_id'");
         echo json_encode(["status" => "deleted"]);
         break;
 
+    //If method is not supported
     default:
         http_response_code(405);
         echo json_encode(["error" => "Method Not Allowed"]);

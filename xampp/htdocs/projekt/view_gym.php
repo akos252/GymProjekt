@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "db.php";
+include "navbar.php";
 
 if (!isset($_GET['gym_id'])) {
     die("Error: No gym selected.");
@@ -47,33 +48,12 @@ $trainer_result = $trainer_stmt->get_result();
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($gym['gym_name']); ?> - Gym Details</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-
-<nav class="navbar">
-    <div class="nav-left">
-        <a href="index.php">
-            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
-        </a>
-    </div>
-    <div class="nav-center">
-        <a href="gyms.php">View Gyms</a>
-
-        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
-            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
-        <?php endif; ?>
-    </div>
-    <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
-            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
-        </a>
-    </div>
-</nav>
-
     <div style="max-width: 600px; margin: auto; padding: 20px; background: #1e1e1e; border-radius: 10px;">
         <h2 style="color: red;"><?php echo htmlspecialchars($gym['gym_name']); ?></h2>
 
@@ -98,11 +78,6 @@ $trainer_result = $trainer_stmt->get_result();
                     style="display:inline-block; margin-top: 10px; padding: 6px 12px; background: #444; color: white; border-radius: 5px; text-decoration: none;">
                     ✏️ Edit
                 </a>
-
-                <button class="btn delete-trainer-btn" data-trainer-id="<?php echo $trainer['trainer_id']; ?>"
-                    style="margin-top: 10px; background: #a00; color: white; padding: 6px 12px; border: none; border-radius: 5px; cursor: pointer;">
-                    🗑️ Delete
-                </button>
                 <?php endif; ?>
 
             </li>
@@ -117,32 +92,6 @@ $trainer_result = $trainer_stmt->get_result();
             Purchase Membership
         </a>
     </div>
-
-    <script>
-        document.addEventListener("click", function (e) {
-            if (e.target.classList.contains("delete-trainer-btn")) {
-                const trainerId = e.target.dataset.trainerId;
-
-                if (!confirm("Are you sure you want to delete this trainer?")) return;
-
-                fetch("delete_trainer.php", {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: "trainer_id=" + encodeURIComponent(trainerId)
-                    })
-                    .then(res => res.text())
-                    .then(data => {
-                        if (data.trim() === "deleted") {
-                            location.reload(); // quick and simple refresh
-                        } else {
-                            alert("Error deleting trainer: " + data);
-                        }
-                    });
-            }
-        });
-    </script>
 
 </body>
 

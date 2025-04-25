@@ -1,79 +1,39 @@
 <?php
 session_start();
 include "db.php";
+include "navbar.php";
+require_once "includes/owner_functions.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    $confirm_password = trim($_POST['confirm_password']);
-    $mobilenum = trim($_POST['mobilenum']);
-    $dob = trim($_POST['dob']);
-    $fullname = trim($_POST['fullname']);
-    $email = trim($_POST['email']);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $mobilenum = $_POST['mobilenum'];
+    $dob = $_POST['dob'];
+    $fullname = $_POST['fullname'];
+    $email = $_POST['email'];
 
-    if ($password !== $confirm_password) {
-        $error = "Passwords do not match!";
+    $result = registerOwner($conn, $username, $password, $confirm_password, $fullname, $email, $mobilenum, $dob);
+
+    if ($result === true) {
+        header("Location: login.php?registered=owner");
+        exit();
     } else {
-        $check_user = "SELECT * FROM login WHERE username = ? OR mobilenum = ?";
-        $stmt = $conn->prepare($check_user);
-        $stmt->bind_param("ss", $username, $mobilenum);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $error = "Username or mobile number already exists.";
-        } else {
-            // Insert into login table with user_type 'owner'
-            $insert_login = "INSERT INTO login (username, pwd, mobilenum, dob, user_type) VALUES (?, ?, ?, ?, 'owner')";
-            $stmt = $conn->prepare($insert_login);
-            $stmt->bind_param("ssss", $username, $password, $mobilenum, $dob);
-
-            if ($stmt->execute()) {
-                $owner_id = $stmt->insert_id;
-
-                // Insert into owner table
-                $insert_owner = "INSERT INTO owner (owner_id, full_name, email, contact_number) VALUES (?, ?, ?, ?)";
-                $stmt_owner = $conn->prepare($insert_owner);
-                $stmt_owner->bind_param("isss", $owner_id, $fullname, $email, $mobilenum);
-                $stmt_owner->execute();
-
-                header("Location: login.php?registered=owner");
-                exit();
-            } else {
-                $error = "Registration failed. Try again.";
-            }
-        }
+        $error = $result;
     }
 }
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Register as Gym Owner - Gym Management</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-left">
-        <a href="index.php">
-            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
-        </a>
-    </div>
-    <div class="nav-center">
-        <a href="gyms.php">View Gyms</a>
-
-        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
-            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
-        <?php endif; ?>
-    </div>
-    <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
-            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
-        </a>
-    </div>
-</nav>
-
 <div class="container">
     <h2>Register as Gym Owner</h2>
     <form method="post">

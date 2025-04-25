@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "db.php";
+include "navbar.php";
 
 // Redirect if not logged in
 if (!isset($_SESSION['username'])) {
@@ -26,37 +27,16 @@ $result = $stmt->get_result();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Gym Management</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
-<nav class="navbar">
-    <div class="nav-left">
-        <a href="index.php">
-            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
-        </a>
-    </div>
-    <div class="nav-center">
-        <a href="gyms.php">View Gyms</a>
-
-        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
-            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
-        <?php endif; ?>
-    </div>
-    <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
-            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
-        </a>
-    </div>
-</nav>
-
 <div style="max-width: 900px; margin: auto; padding: 20px;" class="container">
     <h2>Profile</h2>
     <h2>Logged in as <strong><?php echo htmlspecialchars($username); ?></strong></h2>
 
-    <h3>My Gyms</h3>
+    <h3>My memberships</h3>
 
     <?php if ($result->num_rows > 0): ?>
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px;">

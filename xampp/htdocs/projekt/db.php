@@ -1,5 +1,5 @@
 <?php
-// db.php - adatbázis kapcsolat
+// db.php - database connection
 $host = 'localhost';
 $user = 'root';
 $pass = '';

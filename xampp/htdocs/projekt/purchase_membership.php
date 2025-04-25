@@ -1,21 +1,21 @@
 <?php
 session_start();
 include "db.php";
+include "navbar.php";
 
-// Ensure user is logged in and `id` is set
+// Check if user is logged in
 if (!isset($_SESSION['username']) || !isset($_SESSION['user_id'])) {
     die("Error: You must be logged in to purchase a membership.");
 }
 
-// Get gym_id from URL
+// Check if gym_id is set
 if (!isset($_GET['gym_id'])) {
     die("Error: No gym selected.");
 }
 $gym_id = $_GET['gym_id'];
 
 // Fetch gym details
-$sql = "SELECT gym_name FROM gym WHERE gym_id = ?";
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare("SELECT gym_name FROM gym WHERE gym_id = ?");
 $stmt->bind_param("s", $gym_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -26,29 +26,41 @@ if (!$gym) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_SESSION['user_id']; // Uses `id` from `login` table
+    $user_id = $_SESSION['user_id'];
     $name = trim($_POST['name']);
     $duration = intval($_POST['membership_duration']);
 
-    // Ensure `user_id` is not empty
     if (empty($user_id)) {
         die("Error: user_id is missing from session.");
     }
 
-    // Calculate membership dates
+    //Check for ACTIVE membership
+    $check = $conn->prepare("
+        SELECT membership_id FROM memberships 
+        WHERE user_id = ? AND gym_id = ? AND end_date >= CURDATE()
+    ");
+    $check->bind_param("is", $user_id, $gym_id);
+    $check->execute();
+    $check_result = $check->get_result();
+
+    if ($check_result->num_rows > 0) {
+        echo "<script>alert('You already have an active membership for this gym!'); window.location.href='gyms.php';</script>";
+        exit();
+    }
+
+    //Calculate membership dates
     $start_date = date("Y-m-d");
     $end_date = date("Y-m-d", strtotime("+$duration days"));
 
-    // Insert into memberships table
-    $sql = "INSERT INTO memberships (user_id, gym_id, name, start_date, end_date) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
+    //Insert membership
+    $stmt = $conn->prepare("INSERT INTO memberships (user_id, gym_id, name, start_date, end_date) VALUES (?, ?, ?, ?, ?)");
 
     if (!$stmt) {
         die("SQL Error (Prepare Failed): " . $conn->error);
     }
 
     $stmt->bind_param("issss", $user_id, $gym_id, $name, $start_date, $end_date);
-    
+
     if ($stmt->execute()) {
         echo "<script>alert('Membership purchased successfully!'); window.location.href='gyms.php';</script>";
     } else {
@@ -57,36 +69,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchase Membership</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
-<nav class="navbar">
-    <div class="nav-left">
-        <a href="index.php">
-            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
-        </a>
-    </div>
-    <div class="nav-center">
-        <a href="gyms.php">View Gyms</a>
-
-        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
-            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
-        <?php endif; ?>
-    </div>
-    <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
-            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
-        </a>
-    </div>
-</nav>
-
 <div class="container">
     <h2>Purchase Membership for <?php echo htmlspecialchars($gym['gym_name']); ?></h2>
     

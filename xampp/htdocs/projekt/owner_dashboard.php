@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "db.php";
-
+include "navbar.php";
 
 // Restrict access to owners only
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'owner') {
@@ -47,19 +47,16 @@ if (isset($_POST['add_trainer'])) {
     $time = trim($_POST['trainer_time']);
     $mobilenum = trim($_POST['trainer_mobilenum']);
     $image = file_get_contents($_FILES['trainer_image']['tmp_name']);
-    $gym_ids = $_POST['assigned_gyms'];
 
     $insert = "INSERT INTO trainer (trainer_id, name, time, mobilenum, image) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($insert);
-    $stmt->bind_param("sssss", $trainer_id, $name, $time, $mobilenum, $image);
-    if ($stmt->execute()) {
-        foreach ($gym_ids as $gid) {
-            $map = "INSERT INTO trainer_gym (trainer_id, gym_id) VALUES (?, ?)";
-            $s = $conn->prepare($map);
-            $s->bind_param("ss", $trainer_id, $gid);
-            $s->execute();
-        }
+
+    if (!$stmt) {
+        die("SQL prepare error: " . $conn->error);
     }
+
+    $stmt->bind_param("sssss", $trainer_id, $name, $time, $mobilenum, $image);
+    $stmt->execute();
 }
 
 // Fetch owner's gyms
@@ -67,12 +64,7 @@ $gyms = $conn->prepare("SELECT * FROM gym WHERE owner_id = ?");
 $gyms->bind_param("i", $owner_id);
 $gyms->execute();
 $gyms_result = $gyms->get_result();
-
-// For trainer form: fetch gyms to assign to
-$gym_options = $conn->prepare("SELECT gym_id, gym_name FROM gym WHERE owner_id = ?");
-$gym_options->bind_param("i", $owner_id);
-$gym_options->execute();
-$gym_data = $gym_options->get_result();
+$all_gyms = $gyms_result->fetch_all(MYSQLI_ASSOC);
 
 // Handle update trainer mobile number
 if (isset($_POST['update_trainer_btn'])) {
@@ -103,32 +95,13 @@ if (isset($_POST['update_trainer_btn'])) {
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Owner Dashboard - Gym Management</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-
-<nav class="navbar">
-    <div class="nav-left">
-        <a href="index.php">
-            <img src="asstets/logo.png" alt="GMS Logo" class="logo">
-        </a>
-    </div>
-    <div class="nav-center">
-        <a href="gyms.php">View Gyms</a>
-
-        <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'owner'): ?>
-            <a href="owner_dashboard.php" style="color: red;">Owner Dashboard</a>
-        <?php endif; ?>
-    </div>
-    <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.php'; ?>" class="btn">
-            <?php echo isset($_SESSION['username']) ? 'Profile' : 'Login'; ?>
-        </a>
-    </div>
-</nav>
-
     <div class="container" style="max-width: 900px; margin: auto;">
         <h2 style="color: red;">Welcome, Gym Owner</h2>
 
@@ -154,76 +127,58 @@ if (isset($_POST['update_trainer_btn'])) {
                 <input type="text" name="trainer_time" placeholder="Availability Time" required><br>
                 <input type="text" name="trainer_mobilenum" placeholder="Mobile Number" required><br>
                 <input type="file" name="trainer_image" accept="image/*" required><br>
-                <label style="color: white;">Assign to Gyms:</label>
-                <div class="checkbox-grid">
-                    <?php while ($g = $gym_data->fetch_assoc()): ?>
-                    <label class="styled-checkbox">
-                        <input type="checkbox" name="assigned_gyms[]" value="<?php echo $g['gym_id']; ?>">
-                        <span><?php echo htmlspecialchars($g['gym_name']); ?></span>
-                    </label>
-                    <?php endwhile; ?>
-                </div>
                 <button class="btn" type="submit" name="add_trainer">Add Trainer</button>
             </form>
         </div>
 
         <!-- LIST GYMS -->
         <h3>My Gyms</h3>
-        <div id="gym-list">
-            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-around;">
-                <?php
-        $gyms->execute();
-        $gyms_result = $gyms->get_result();
-        while ($gym = $gyms_result->fetch_assoc()): ?>
-                <div style="background: #1e1e1e; padding: 20px; border-radius: 10px; width: 40%; text-align: center;">
-                    <h3 style="color: red;"><?php echo htmlspecialchars($gym['gym_name']); ?></h3>
-                    <p style="font-weight: bold;"><?php echo htmlspecialchars($gym['gym_type']); ?></p>
-                    <p style="color: #bbb;"><?php echo htmlspecialchars($gym['gym_address']); ?></p>
-                    <a href="view_gym.php?gym_id=<?php echo $gym['gym_id']; ?>"
-                        style="display: inline-block; margin-top: 10px; background: red; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px;">
-                        View Trainers
-                    </a>
-                    <a href="edit_gym.php?gym_id=<?php echo $gym['gym_id']; ?>"
-                        style="display: inline-block; margin-top: 10px; background: #555; color: white; padding: 8px 12px; text-decoration: none; border-radius: 5px;">
-                        ✏️ Edit
-                    </a><br>
-                    <button class="btn delete-gym-btn" data-gym-id="<?php echo $gym['gym_id']; ?>"
-                        style="margin-top: 10px; background: #a00; color: white; padding: 8px 12px; border: none; border-radius: 5px; cursor: pointer;">
-                        🗑️ Delete
-                    </button>
-                </div>
-                <?php endwhile; ?>
-            </div>
-        </div>
+<div id="gym-list">
+    <div class="gym-list-wrapper">
+    <?php foreach ($gym_list as $gym): ?>
+    <div class="gym-card">
+        <h3 class="gym-name"><?php echo htmlspecialchars($gym['gym_name']); ?></h3>
+        <p class="gym-type"><?php echo htmlspecialchars($gym['gym_type']); ?></p>
+        <p class="gym-address"><?php echo htmlspecialchars($gym['gym_address']); ?></p>
+        <a href="view_gym.php?gym_id=<?php echo $gym['gym_id']; ?>" class="btn">View Gym</a>
+        <a href="edit_gym.php?gym_id=<?php echo $gym['gym_id']; ?>" class="btn edit-btn">✏️ Edit</a>
+        <button class="btn delete-gym-btn" data-gym-id="<?php echo $gym['gym_id']; ?>">🗑️ Delete</button>
+    </div>
+<?php endforeach; ?>
+    </div>
+</div>
         <!-- LIST TRAINERS -->
         <h3 style="margin-top: 40px; text-align: center;">My Trainers</h3>
         <div
             style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px; margin: 0 auto;">
             <?php
-$trainers = $conn->prepare("
+    $trainers = $conn->prepare("
     SELECT DISTINCT t.trainer_id, t.name
     FROM trainer t
-    JOIN trainer_gym tg ON tg.trainer_id = t.trainer_id
-    JOIN gym g ON g.gym_id = tg.gym_id
-    WHERE g.owner_id = ?
-");
-$trainers->bind_param("i", $owner_id);
-$trainers->execute();
-$trainers_result = $trainers->get_result();
+    LEFT JOIN trainer_gym tg ON tg.trainer_id = t.trainer_id
+    LEFT JOIN gym g ON g.gym_id = tg.gym_id
+    WHERE g.owner_id = ? OR g.owner_id IS NULL
+    ");
+    $trainers->bind_param("i", $owner_id);
+    $trainers->execute();
+    $result = $trainers->get_result();
+    $trainer_list = $result->fetch_all(MYSQLI_ASSOC);
+    ?>
 
-if ($trainers_result->num_rows > 0):
-    while ($trainer = $trainers_result->fetch_assoc()):
-?>
-            <div
-                style="width: 40%; min-width: 250px; background: #1e1e1e; padding: 15px; border-radius: 8px; text-align: center;">
-                <a href="view_trainer.php?trainer_id=<?php echo $trainer['trainer_id']; ?>"
-                    style="text-decoration: none; color: red; font-weight: bold; font-size: 16px;">
-                    <?php echo htmlspecialchars($trainer['name']); ?>
-                </a>
-            </div>
-            <?php endwhile; else: ?>
-            <p style="color: gray;">No trainers found.</p>
-            <?php endif; ?>
+<?php if (count($trainer_list) > 0): ?>
+    <?php foreach ($trainer_list as $trainer): ?>
+        <div
+            style="width: 40%; min-width: 250px; background: #1e1e1e; padding: 15px; border-radius: 8px; text-align: center;">
+            <a href="view_trainer.php?trainer_id=<?php echo $trainer['trainer_id']; ?>"
+                style="text-decoration: none; color: red; font-weight: bold; font-size: 16px;">
+                <?php echo htmlspecialchars($trainer['name']); ?>
+            </a>
+        </div>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p style="color: gray;">No trainers found.</p>
+<?php endif; ?>
+
         </div>
     </div>
     </div>
