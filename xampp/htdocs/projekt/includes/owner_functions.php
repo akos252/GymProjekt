@@ -37,11 +37,10 @@ function registerOwner($conn, $username, $password, $confirm_password, $fullname
         return "Registration failed at login insertion.";
     }
 
-    // 🔥 ITT A FONTOS RÉSZ:
     if ($mockInsertId !== null) {
-        $owner_id = $mockInsertId; // TESZT ESETÉN fix ID
+        $owner_id = $mockInsertId; // In case of test: fixed id
     } else {
-        $owner_id = $conn->insert_id; // ÉLES működésnél valós ID
+        $owner_id = $conn->insert_id; // Live use: real id
     }
 
     $insert_owner = "INSERT INTO owner (owner_id, full_name, email, contact_number) VALUES (?, ?, ?, ?)";

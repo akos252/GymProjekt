@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class OwnerFunctionsTest extends TestCase
 {
+    // Tests if password and confirm password dont match, return should be "Passwords do not match!"
     public function testPasswordsDoNotMatch()
     {
         $connMock = $this->createMock(mysqli::class);
@@ -14,6 +15,7 @@ class OwnerFunctionsTest extends TestCase
         $this->assertEquals("Passwords do not match!", $result);
     }
 
+    //Tests for successful registration, checks for existing user, succcessful insert into login table and successful insert into owner table. Return should be "true".
     public function testSuccessfulRegistration()
     {
         $stmtSelectMock = $this->createMock(mysqli_stmt::class);
@@ -29,7 +31,6 @@ class OwnerFunctionsTest extends TestCase
         $stmtOwnerInsertMock->method('execute')->willReturn(true);
 
         $connMock = $this->createMock(mysqli::class);
-        // Törölve: $connMock->method('__get')...
 
         $connMock->method('prepare')->willReturnCallback(function ($query) use ($stmtSelectMock, $stmtLoginInsertMock, $stmtOwnerInsertMock) {
             if (str_starts_with($query, 'SELECT')) return $stmtSelectMock;

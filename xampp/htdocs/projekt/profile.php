@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 
-// Fetch user's gyms
+// Fetch user's memberships
 $sql = "SELECT g.gym_id, g.gym_name, g.gym_address, g.gym_type 
         FROM gym g
         JOIN memberships m ON g.gym_id = m.gym_id

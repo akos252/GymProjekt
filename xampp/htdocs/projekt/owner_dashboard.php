@@ -66,28 +66,6 @@ $gyms->execute();
 $gyms_result = $gyms->get_result();
 $all_gyms = $gyms_result->fetch_all(MYSQLI_ASSOC);
 
-// Handle update trainer mobile number
-if (isset($_POST['update_trainer_btn'])) {
-    $trainer_id = $_POST['update_trainer_id'];
-    $new_mobilenum = trim($_POST['update_mobilenum']);
-
-    // Make sure trainer belongs to one of owner's gyms
-    $verify = $conn->prepare("
-        SELECT 1 FROM trainer_gym tg
-        JOIN gym g ON g.gym_id = tg.gym_id
-        WHERE tg.trainer_id = ? AND g.owner_id = ?
-    ");
-    $verify->bind_param("si", $trainer_id, $owner_id);
-    $verify->execute();
-    $result = $verify->get_result();
-
-    if ($result->num_rows > 0) {
-        $update = $conn->prepare("UPDATE trainer SET mobilenum = ? WHERE trainer_id = ?");
-        $update->bind_param("ss", $new_mobilenum, $trainer_id);
-        $update->execute();
-    }
-}
-
 ?>
 
 

@@ -169,7 +169,6 @@ select {
     width: 18px;
     height: 18px;
     accent-color: red;
-    /* native styling (modern browsers) */
     cursor: pointer;
 }
 
@@ -203,7 +202,6 @@ select {
 
 .tcheckbox-grid input[type="checkbox"] {
     accent-color: red;
-    /* Optional for red checkboxes */
 }
 
 .introduction {

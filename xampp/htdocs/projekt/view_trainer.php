@@ -127,6 +127,7 @@ $gyms_list = $gyms_all->get_result();
     </form>
 </div>
 <script>
+    // Handle delete trainer
     document.querySelector('form[action="delete_trainer.php"]').addEventListener('submit', function(e) {
     e.preventDefault();
 

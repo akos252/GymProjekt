@@ -6,6 +6,7 @@ require_once __DIR__ . '/../xampp/htdocs/projekt/includes/user_functions.php';
 
 class UserFunctionsTest extends TestCase
 {
+    // Tests if password and confirm password dont match, return should be "Passwords do not match!"
     public function testPasswordsDoNotMatch()
     {
         $connMock = $this->createMock(mysqli::class);
@@ -14,6 +15,7 @@ class UserFunctionsTest extends TestCase
         $this->assertEquals("Passwords do not match!", $result);
     }
 
+    //Tests if user already exists. Checks for existing username mobilenum in database. Return should be "Username or mobile number already exists. Choose another!".
     public function testUserAlreadyExists()
     {
         $stmtMock = $this->createMock(mysqli_stmt::class);
@@ -32,6 +34,7 @@ class UserFunctionsTest extends TestCase
         $this->assertEquals("Username or mobile number already exists. Choose another!", $result);
     }
 
+    //Tests for successful registration, checks for existing user and succcessful insert into login table. Return should be "true".
     public function testSuccessfulRegistration()
     {
         // MOCK get_result: return 0 results (user nem létezik)

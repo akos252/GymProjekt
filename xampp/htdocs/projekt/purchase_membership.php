@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Error: user_id is missing from session.");
     }
 
-    //Check for ACTIVE membership
+    //Check for active membership
     $check = $conn->prepare("
         SELECT membership_id FROM memberships 
         WHERE user_id = ? AND gym_id = ? AND end_date >= CURDATE()
