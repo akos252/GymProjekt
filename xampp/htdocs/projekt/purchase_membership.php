@@ -2,6 +2,7 @@
 session_start();
 include "db.php";
 include "navbar.php";
+require_once "includes/membership_functions.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['username']) || !isset($_SESSION['user_id'])) {
@@ -15,11 +16,7 @@ if (!isset($_GET['gym_id'])) {
 $gym_id = $_GET['gym_id'];
 
 // Fetch gym details
-$stmt = $conn->prepare("SELECT gym_name FROM gym WHERE gym_id = ?");
-$stmt->bind_param("s", $gym_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$gym = $result->fetch_assoc();
+$gym = fetchGymDetails($conn, $gym_id);
 
 if (!$gym) {
     die("Error: Gym not found.");
@@ -34,41 +31,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Error: user_id is missing from session.");
     }
 
-    //Check for active membership
-    $check = $conn->prepare("
-        SELECT membership_id FROM memberships 
-        WHERE user_id = ? AND gym_id = ? AND end_date >= CURDATE()
-    ");
-    $check->bind_param("is", $user_id, $gym_id);
-    $check->execute();
-    $check_result = $check->get_result();
-
-    if ($check_result->num_rows > 0) {
+    if (hasActiveMembership($conn, $user_id, $gym_id)) {
         echo "<script>alert('You already have an active membership for this gym!'); window.location.href='gyms.php';</script>";
         exit();
     }
 
-    //Calculate membership dates
-    $start_date = date("Y-m-d");
-    $end_date = date("Y-m-d", strtotime("+$duration days"));
-
-    //Insert membership
-    $stmt = $conn->prepare("INSERT INTO memberships (user_id, gym_id, name, start_date, end_date) VALUES (?, ?, ?, ?, ?)");
-
-    if (!$stmt) {
-        die("SQL Error (Prepare Failed): " . $conn->error);
-    }
-
-    $stmt->bind_param("issss", $user_id, $gym_id, $name, $start_date, $end_date);
-
-    if ($stmt->execute()) {
+    if (purchaseMembership($conn, $user_id, $gym_id, $name, $duration)) {
         echo "<script>alert('Membership purchased successfully!'); window.location.href='gyms.php';</script>";
     } else {
-        die("SQL Error (Execution Failed): " . $stmt->error);
+        die("Error: Failed to purchase membership.");
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -99,6 +73,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button class="btn" type="submit">Purchase Membership</button>
     </form>
 </div>
-
 </body>
 </html>
