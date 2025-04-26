@@ -10,8 +10,15 @@ function loginUser($conn, $username, $password) {
     }
 
     $stmt->bind_param("ss", $username, $password);
-    $stmt->execute();
+    
+    if (!$stmt->execute()) {
+        return "Database error during execute.";
+    }
+
     $result = $stmt->get_result();
+    if (!$result) {
+        return "Database error getting result.";
+    }
 
     if ($user = $result->fetch_assoc()) {
         return $user;
