@@ -187,7 +187,6 @@ select {
 
 .tcheckbox-grid label {
     border: 1px solid #888;
-    /* <-- Add border */
     padding: 10px 14px;
     border-radius: 6px;
     display: flex;
