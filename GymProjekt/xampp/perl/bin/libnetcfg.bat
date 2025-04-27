@@ -26,7 +26,7 @@ goto endofperl
 @rem ';
 #!perl
 #line 29
-    eval 'exec C:\Users\user\Desktop\GymProjekt\xampp\perl\bin\perl.exe -S $0 ${1+"$@"}'
+    eval 'exec C:\Users\user\Desktop\GymProjekt\GymProjekt\xampp\perl\bin\perl.exe -S $0 ${1+"$@"}'
 	if $running_under_some_shell;
 
 =head1 NAME
